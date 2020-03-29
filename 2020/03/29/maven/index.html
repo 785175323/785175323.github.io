@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/dog.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/dog.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/dog.jpg">
+  <link rel="mask-icon" href="/images/dog.jpg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Apache Maven是一个软件项目管理工具。基于项目对象模型（POM）的概念，Maven可以通过一小段描述信息来管理项目的构建，报告和文档。 Maven的核心是一个插件执行框架， 所有工作都是通过插件完成的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven使用说明">
+<meta property="og:url" content="http://yoursite.com/2020/03/29/maven/index.html">
+<meta property="og:site_name" content="KAKUIWONG">
+<meta property="og:description" content="Apache Maven是一个软件项目管理工具。基于项目对象模型（POM）的概念，Maven可以通过一小段描述信息来管理项目的构建，报告和文档。 Maven的核心是一个插件执行框架， 所有工作都是通过插件完成的。">
+<meta property="article:published_time" content="2020-03-29T03:11:06.000Z">
+<meta property="article:modified_time" content="2020-03-29T04:07:00.443Z">
+<meta property="article:author" content="GY">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="mq">
+<meta property="article:tag" content="Spring Cloud">
+<meta property="article:tag" content="dubbo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/29/maven/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>maven使用说明 | KAKUIWONG</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">KAKUIWONG</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">I'm willing to do anything but ordinary.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/29/maven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="GY">
+      <meta itemprop="description" content="后端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAKUIWONG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          maven使用说明
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-29 11:11:06 / 修改时间：12:07:00" itemprop="dateCreated datePublished" datetime="2020-03-29T11:11:06+08:00">2020-03-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">后端技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Apache Maven是一个软件项目管理工具。基于项目对象模型（POM）的概念，Maven可以通过一小段描述信息来管理项目的构建，报告和文档。 Maven的核心是一个插件执行框架， 所有工作都是通过插件完成的。<a id="more"></a></p>
+<p>最熟悉的插件如我们比较常用的：</p>
+<ul>
+<li>clean（<a href="https://github.com/apache/maven-clean-plugin/" target="_blank" rel="noopener">https://github.com/apache/maven-clean-plugin/</a>）</li>
+<li>compiler（&lt;<a href="https://github.com/apache/maven-compiler-plugin/" target="_blank" rel="noopener">https://github.com/apache/maven-compiler-plugin/</a> &gt;）</li>
+<li>install（<a href="https://github.com/apache/maven-install-plugin/" target="_blank" rel="noopener">https://github.com/apache/maven-install-plugin/ </a>）</li>
+<li>deploy（&lt;<a href="https://github.com/apache/maven-deploy-plugin/" target="_blank" rel="noopener">https://github.com/apache/maven-deploy-plugin/</a> &gt;）</li>
+</ul>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="基础信息"><a href="#基础信息" class="headerlink" title="基础信息"></a>基础信息</h3><h4 id="定义pom模型的基本信息"><a href="#定义pom模型的基本信息" class="headerlink" title="定义pom模型的基本信息"></a>定义pom模型的基本信息</h4><p>使用Maven构建的项目，首先需要在pom.xml文件中写明基本信息，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;com.yudianbank.project&lt;&#x2F;groupId&gt; &#x2F;&#x2F;组织ID</span><br><span class="line">    &lt;artifactId&gt;salesAppParent&lt;&#x2F;artifactId&gt;&#x2F;&#x2F;工程名称</span><br><span class="line">    &lt;packaging&gt;pom&lt;&#x2F;packaging&gt;&#x2F;&#x2F;打包方式，如：jar、war、pom、rar等</span><br><span class="line">    &lt;version&gt;1.0-RELEASES&lt;&#x2F;version&gt; &#x2F;&#x2F;版本号</span><br></pre></td></tr></table></figure>
+
+<p>由groupId、artifactId、version三个元素定位唯一的jar信息，常说的发个Maven坐标也就是这三个元素</p>
+<h4 id="modules-节点，聚合子模块，"><a href="#modules-节点，聚合子模块，" class="headerlink" title="modules 节点，聚合子模块，"></a>modules 节点，聚合子模块，</h4><p>在多模块的项目中使用，用来定义子模块，一般多模块项目中，父模块的packaging都定义为pom</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;modules&gt;</span><br><span class="line">        &lt;module&gt;api&lt;&#x2F;module&gt;</span><br><span class="line">        &lt;module&gt;producer&lt;&#x2F;module&gt;</span><br><span class="line">    &lt;&#x2F;modules&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="parent节点，继承其他pom模型的属性"><a href="#parent节点，继承其他pom模型的属性" class="headerlink" title="parent节点，继承其他pom模型的属性"></a>parent节点，继承其他pom模型的属性</h4><p>如：在spring boot项目中，会有如下parent节点，用来继承spring boot已经定义好的pom</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-parent&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.5.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;relativePath&#x2F;&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">    &lt;&#x2F;parent&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="properties-节点，定义属性信息"><a href="#properties-节点，定义属性信息" class="headerlink" title="properties 节点，定义属性信息"></a>properties 节点，定义属性信息</h4><p>这个节点一般用于定义一些属性，用来作为插件的默认值。在这里定义的属性可以贯穿Maven build的整个生命周期，Maven属性是值占位符，可以在pom中通过${XXX}符号来使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">        &lt;spring-cloud.version&gt;Dalston.SR3&lt;&#x2F;spring-cloud.version&gt;</span><br><span class="line">        &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">        &lt;compiler.version&gt;1.8&lt;&#x2F;compiler.version&gt;</span><br><span class="line">        &lt;powermock.version&gt;1.6.4&lt;&#x2F;powermock.version&gt;</span><br><span class="line">        &lt;checkstyle.version&gt;6.18&lt;&#x2F;checkstyle.version&gt;</span><br><span class="line">    &lt;&#x2F;properties&gt;</span><br></pre></td></tr></table></figure>
+
+<p>除了如上手动定义的一些属性，我们还可以通过如下的方式，访问到其他的一些变量，如：</p>
+<ul>
+<li>env.X : 使用“env.”对变量进行前缀。将返回shell的环境变量。例如，$ {env.PATH}包含PATH环境变量。 注意：虽然环境变量本身在Windows上不区分大小写，但属性的查找区分大小写。换句话说，当Windows shell为％PATH％和％Path％返回相同的值时，Maven会区分$ {env.PATH}和$ {env.Path}。从Maven 2.1.0开始，为了可靠性，环境变量的名称被归一化为所有大写。</li>
+<li>project.x : POM中的标记路径将包含相应元素的值。例如：<project> <version> 1.0 &lt;/ version&gt; &lt;/ project&gt;可通过$ {project.version}访问。</li>
+<li>settings.x : Mavne Home路径的settings.xml将包含相应的元素的值。例如：<settings> <offline> false &lt;/ offline&gt; &lt;/ settings&gt;可通过$ {settings.offline}访问。</li>
+<li>Java系统属性 : 通过java.lang.System.getProperties（）访问的所有属性都可用作POM属性，例如${java.home}。</li>
+</ul>
+<h4 id="dependencies-节点，定义项目依赖"><a href="#dependencies-节点，定义项目依赖" class="headerlink" title="dependencies 节点，定义项目依赖"></a>dependencies 节点，定义项目依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.cloud&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<p>除了基本的groupId、artifactId、version坐标属性外，dependency节点中还包括如下的常用属性设置</p>
+<ul>
+<li>type : 依赖的类型，默认是jar</li>
+<li>classifier : 分类器，额外的jar坐标标记，用来依赖那些从同一个POM中打出的不同的jar包。</li>
+<li>scope : 依赖的jar的作用范围，可选（compile，runtime，test，system，provided）</li>
+</ul>
+<p>compile : 这是默认范围。所有类路径中都提供了编译依赖项。此外，这些依赖项将传播到依赖项目</p>
+<p>runtime : 这很像compile，但表示您希望JDK或容器在运行时提供它。它仅在编译和测试类路径中可用，并且不可传递。</p>
+<p>test : 此范围表示正常使用应用程序不需要依赖项，并且仅适用于测试编译和执行阶段。它不是传递性的。</p>
+<p>provided :这很像compile，但表示您希望JDK或容器在运行时提供它。它仅在编译和测试类路径中可用，并且不可传递。</p>
+<p>system :此范围与provided的类似，只是您必须提供明确包含它的JAR，声明后不会在存储库中查找</p>
+<ul>
+<li>Systempath:当scope为system生效，用于定义本地依赖的路径</li>
+<li>optional :是否启用依赖传递，默认false需要依赖传递。如A依赖B，B依赖C，默认情况下A中会有C的依赖，如果在依赖B时设置optional为true，则A中不会有C的依赖</li>
+<li>exclusions :排除依赖传递</li>
+</ul>
+<p>注:  简单来说，compile、runtime和provided的区别，需要在执行mvn package命令，且打包格式是war之类（而不是默认的jar）的时候才能看出来。通过compile和provided引入的jar包，里面的类，你在项目中可以直接import进来用，编译没问题，但是runtime引入的jar包中的类，项目代码里不能直接用，用了无法通过编译，只能通过反射之类的方式来用。通过compile和runtime引入的jar包，会出现在你的项目war包里，而provided引入的jar包则不会。</p>
+<p>dependencies -&gt; exclusions 节点，排除依赖传递</p>
+<p>有时候为了解决项目依赖冲突，需要排除依赖的jar包通过Maven依赖传递特性引用的其他jar，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;com.yudianbank.public&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;pdf&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.1-RELEASES&lt;&#x2F;version&gt;</span><br><span class="line">            &lt;exclusions&gt;</span><br><span class="line">                &lt;exclusion&gt;</span><br><span class="line">                    &lt;groupId&gt;commons-pool&lt;&#x2F;groupId&gt;</span><br><span class="line">                    &lt;artifactId&gt;commons-pool&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;&#x2F;exclusion&gt;</span><br><span class="line">            &lt;&#x2F;exclusions&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>关于Maven依赖传递特性，当出现多个jar依赖相同的不同版本jar时，遵循两个原则来引用：</p>
+<ul>
+<li>最短路径原则:如A-&gt;B-&gt;C-D1 , A-&gt;B1-&gt;D2 , 那么最终项目A依赖的D的版本是D2。</li>
+<li>最先定义原则: 如A-&gt;B-&gt;D1 , A-&gt;C-&gt;D2 , 那么最终项目A雨来的D的版本是D1.</li>
+</ul>
+<h4 id="dependencyManagement-节点，声明依赖项"><a href="#dependencyManagement-节点，声明依赖项" class="headerlink" title="dependencyManagement 节点，声明依赖项"></a>dependencyManagement 节点，声明依赖项</h4><p>dependencyManagement用来管理声明依赖项，最常见于spring boot项目中，在依赖节点只需要写groupId、artifactId就可以定位一个jar坐标，是因为spring boot的父pom中使用dependencyManagement声明了常用的依赖项，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">		&lt;dependencies&gt;</span><br><span class="line">			&lt;!-- Spring Boot --&gt;</span><br><span class="line">			&lt;dependency&gt;</span><br><span class="line">				&lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;spring-boot&lt;&#x2F;artifactId&gt;</span><br><span class="line">				&lt;version&gt;1.5.7.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">			&lt;&#x2F;dependency&gt;</span><br><span class="line">			.......</span><br><span class="line">		&lt;&#x2F;dependencies&gt;</span><br><span class="line">   &lt;&#x2F;dependencyManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用dependencyManagement管理的依赖只是声明了，如果没有显示的定义在&lt; dependencies &gt;节点中是不生效的</p>
+<h4 id="profiles-gt-profile-节点，定义不同环境的构建属性"><a href="#profiles-gt-profile-节点，定义不同环境的构建属性" class="headerlink" title="profiles -&gt; profile 节点，定义不同环境的构建属性"></a>profiles -&gt; profile 节点，定义不同环境的构建属性</h4><p>在软件项目迭代中，通常会有开发、测试、生产等不同的运行环境。很多时候不同的环境需要不同的依赖属性，诸如此场景，都可以使用profiles来定义不同环境下的变量，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;profiles&gt;</span><br><span class="line">        &lt;profile&gt;</span><br><span class="line">            &lt;id&gt;dev&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;activation&gt;</span><br><span class="line">                &lt;activeByDefault&gt;true&lt;&#x2F;activeByDefault&gt;</span><br><span class="line">            &lt;&#x2F;activation&gt;</span><br><span class="line">            &lt;properties&gt;</span><br><span class="line">                &lt;!--销售平台 api版本--&gt;</span><br><span class="line">                &lt;sales.api.version&gt;1.0-SNAPSHOT&lt;&#x2F;sales.api.version&gt;</span><br><span class="line">                &lt;!--本地日志存储地址--&gt;</span><br><span class="line">                &lt;logging.path&gt;$&#123;basedir&#125;&#x2F;target&#x2F;logs&lt;&#x2F;logging.path&gt;</span><br><span class="line">            &lt;&#x2F;properties&gt;</span><br><span class="line">        &lt;&#x2F;profile&gt;</span><br><span class="line">        &lt;profile&gt;</span><br><span class="line">            &lt;id&gt;uat&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;properties&gt;</span><br><span class="line">                &lt;sales.api.version&gt;1.0-SNAPSHOT&lt;&#x2F;sales.api.version&gt;</span><br><span class="line">                &lt;logging.path&gt;&#x2F;data&#x2F;logs&#x2F;$&#123;appName&#125;&lt;&#x2F;logging.path&gt;</span><br><span class="line">            &lt;&#x2F;properties&gt;</span><br><span class="line">        &lt;&#x2F;profile&gt;</span><br><span class="line">        &lt;profile&gt;</span><br><span class="line">            &lt;id&gt;prod&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;properties&gt;</span><br><span class="line">                &lt;sales.api.version&gt;1.0-RELEASES&lt;&#x2F;sales.api.version&gt;</span><br><span class="line">                &lt;logging.path&gt;&#x2F;data&#x2F;logs&#x2F;$&#123;appName&#125;&lt;&#x2F;logging.path&gt;</span><br><span class="line">            &lt;&#x2F;properties&gt;</span><br><span class="line">        &lt;&#x2F;profile&gt;   </span><br><span class="line">    &lt;&#x2F;profiles&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="repositories、pluginRepositories-节点，定义依赖和插件的仓库地址"><a href="#repositories、pluginRepositories-节点，定义依赖和插件的仓库地址" class="headerlink" title="repositories、pluginRepositories 节点，定义依赖和插件的仓库地址"></a>repositories、pluginRepositories 节点，定义依赖和插件的仓库地址</h4><p>这里可以定义jar拉取的仓库地址，除了Apache中央仓库外，还有很多其他的开源仓库，如spring的，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;</span><br><span class="line">    &lt;repository&gt;</span><br><span class="line">      &lt;id&gt;central&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;name&gt;Central Repository&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;repo.maven.apache.org&#x2F;maven2&lt;&#x2F;url&gt;</span><br><span class="line">      &lt;layout&gt;default&lt;&#x2F;layout&gt;</span><br><span class="line">      &lt;snapshots&gt;</span><br><span class="line">        &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">      &lt;&#x2F;snapshots&gt;</span><br><span class="line">    &lt;&#x2F;repository&gt;</span><br><span class="line">  &lt;&#x2F;repositories&gt;</span><br><span class="line"> </span><br><span class="line">  &lt;pluginRepositories&gt;</span><br><span class="line">    &lt;pluginRepository&gt;</span><br><span class="line">      &lt;id&gt;central&lt;&#x2F;id&gt;</span><br><span class="line">      &lt;name&gt;Central Repository&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;repo.maven.apache.org&#x2F;maven2&lt;&#x2F;url&gt;</span><br><span class="line">      &lt;layout&gt;default&lt;&#x2F;layout&gt;</span><br><span class="line">      &lt;snapshots&gt;</span><br><span class="line">        &lt;enabled&gt;false&lt;&#x2F;enabled&gt;</span><br><span class="line">      &lt;&#x2F;snapshots&gt;</span><br><span class="line">      &lt;releases&gt;</span><br><span class="line">        &lt;updatePolicy&gt;never&lt;&#x2F;updatePolicy&gt;</span><br><span class="line">      &lt;&#x2F;releases&gt;</span><br><span class="line">    &lt;&#x2F;pluginRepository&gt;</span><br><span class="line">  &lt;&#x2F;pluginRepositories&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构建信息"><a href="#构建信息" class="headerlink" title="构建信息"></a>构建信息</h3><h4 id="build-节点，设置输入输出路径"><a href="#build-节点，设置输入输出路径" class="headerlink" title="build 节点，设置输入输出路径"></a>build 节点，设置输入输出路径</h4><p>为什么在使用Maven构建的项目中，项目编译后会在pom所在目录下生成target目录？是因为在build构建节点中有如下的默认的配置。当然，如果你显示配置了如下的属性，就可以指定编译后文件的输出目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;sourceDirectory&gt;$&#123;basedir&#125;&#x2F;src&#x2F;main&#x2F;java&lt;&#x2F;sourceDirectory&gt;</span><br><span class="line">    &lt;scriptSourceDirectory&gt;$&#123;basedir&#125;&#x2F;src&#x2F;main&#x2F;scripts&lt;&#x2F;scriptSourceDirectory&gt;</span><br><span class="line">    &lt;testSourceDirectory&gt;$&#123;basedir&#125;&#x2F;src&#x2F;test&#x2F;java&lt;&#x2F;testSourceDirectory&gt;</span><br><span class="line">    &lt;outputDirectory&gt;$&#123;basedir&#125;&#x2F;target&#x2F;classes&lt;&#x2F;outputDirectory&gt;</span><br><span class="line">    &lt;testOutputDirectory&gt;$&#123;basedir&#125;&#x2F;target&#x2F;test-classes&lt;&#x2F;testOutputDirectory&gt;</span><br><span class="line">    ...</span><br><span class="line">  &lt;&#x2F;build&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="build-gt-resources-定义项目资源"><a href="#build-gt-resources-定义项目资源" class="headerlink" title="build -&gt; resources,定义项目资源"></a>build -&gt; resources,定义项目资源</h4><p>resources用来定义项目的资源路径，默认的路径为${basedir}/src/main/resources，在spring boot环境中，继承了spring boot的父pom属性，它的resources定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;resources&gt;</span><br><span class="line">			&lt;resource&gt;</span><br><span class="line">				&lt;directory&gt;$&#123;basedir&#125;&#x2F;src&#x2F;main&#x2F;resources&lt;&#x2F;directory&gt;</span><br><span class="line">				&lt;filtering&gt;true&lt;&#x2F;filtering&gt;</span><br><span class="line">				&lt;includes&gt;</span><br><span class="line">					&lt;include&gt;**&#x2F;application*.yml&lt;&#x2F;include&gt;</span><br><span class="line">					&lt;include&gt;**&#x2F;application*.yaml&lt;&#x2F;include&gt;</span><br><span class="line">					&lt;include&gt;**&#x2F;application*.properties&lt;&#x2F;include&gt;</span><br><span class="line">				&lt;&#x2F;includes&gt;</span><br><span class="line">			&lt;&#x2F;resource&gt;</span><br><span class="line">			&lt;resource&gt;</span><br><span class="line">				&lt;directory&gt;$&#123;basedir&#125;&#x2F;src&#x2F;main&#x2F;resources&lt;&#x2F;directory&gt;</span><br><span class="line">				&lt;excludes&gt;</span><br><span class="line">					&lt;exclude&gt;**&#x2F;application*.yml&lt;&#x2F;exclude&gt;</span><br><span class="line">					&lt;exclude&gt;**&#x2F;application*.yaml&lt;&#x2F;exclude&gt;</span><br><span class="line">					&lt;exclude&gt;**&#x2F;application*.properties&lt;&#x2F;exclude&gt;</span><br><span class="line">				&lt;&#x2F;excludes&gt;</span><br><span class="line">			&lt;&#x2F;resource&gt;</span><br><span class="line">		&lt;&#x2F;resources&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，spring boot中只定义了三种文件类型的资源，而且通配application开头的文件。当项目中有其他的文件类型或不是application开头时，Maven就会过滤掉。而且在spring boot中定义了属性占位符为<a href="https://my.oschina.net/uancn" target="_blank" rel="noopener">@符号</a>，所以在资源文件中使用${}时并不会生效。为了解决这个问题，可以自己在pom中定义resources属性覆盖父pom的行为：如，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;resources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;directory&gt;src&#x2F;main&#x2F;resources&lt;&#x2F;directory&gt;</span><br><span class="line">                &lt;includes&gt;</span><br><span class="line">                    &lt;include&gt;**&#x2F;*&lt;&#x2F;include&gt;</span><br><span class="line">                &lt;&#x2F;includes&gt;</span><br><span class="line">                &lt;filtering&gt;true&lt;&#x2F;filtering&gt;</span><br><span class="line">            &lt;&#x2F;resource&gt;</span><br><span class="line">        &lt;&#x2F;resources&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="build-gt-plugins-gt-plugin-定义构建插件"><a href="#build-gt-plugins-gt-plugin-定义构建插件" class="headerlink" title="build -&gt; plugins -&gt; plugin,定义构建插件"></a>build -&gt; plugins -&gt; plugin,定义构建插件</h4><p>plugin这个节点主要用来定义构建的插件，包括自定义和已经发布到中央仓库的。如spring boot环境想构建可执行的jar需要添加spring-boot-maven-plugin插件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">            &lt;!扫描url--&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;com.yudianbank.plugin&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;api-abstractor&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;1.1.1-RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;phase&gt;process-classes&lt;&#x2F;phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;createAbstract&lt;&#x2F;goal&gt;</span><br><span class="line">                        &lt;&#x2F;goals&gt;</span><br><span class="line">                    &lt;&#x2F;execution&gt;</span><br><span class="line">                &lt;&#x2F;executions&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;&#x2F;plugins&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更多可用的插件：<a href="http://maven.apache.org/plugins/index.html" target="_blank" rel="noopener">http://maven.apache.org/plugins/index.html</a></p>
+<h4 id="distributionManagement-节点，配置deploy的仓库地址"><a href="#distributionManagement-节点，配置deploy的仓库地址" class="headerlink" title="distributionManagement 节点，配置deploy的仓库地址"></a>distributionManagement 节点，配置deploy的仓库地址</h4><p>当我们自己搭建了私服，想要将jar包编译后上传到私服时，需要在这个节点配置仓库的地址，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;distributionManagement&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">            &lt;id&gt;repo&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;name&gt;User Project Releases&lt;&#x2F;name&gt;</span><br><span class="line">            &lt;url&gt;http:&#x2F;&#x2F;192.168.1.204:8081&#x2F;nexus&#x2F;content&#x2F;repositories&#x2F;releases&lt;&#x2F;url&gt;</span><br><span class="line">        &lt;&#x2F;repository&gt;</span><br><span class="line">        &lt;snapshotRepository&gt;</span><br><span class="line">            &lt;id&gt;repo&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;name&gt;User Project SNAPSHOTS&lt;&#x2F;name&gt;</span><br><span class="line">            &lt;url&gt;http:&#x2F;&#x2F;192.168.1.204:8081&#x2F;nexus&#x2F;content&#x2F;repositories&#x2F;snapshots&lt;&#x2F;url&gt;</span><br><span class="line">        &lt;&#x2F;snapshotRepository&gt;</span><br><span class="line">    &lt;&#x2F;distributionManagement&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="项目信息"><a href="#项目信息" class="headerlink" title="项目信息"></a>项目信息</h3><h4 id="根节点下的name、description、url等节点"><a href="#根节点下的name、description、url等节点" class="headerlink" title="根节点下的name、description、url等节点"></a>根节点下的name、description、url等节点</h4><p>根节点下的name、description、url等节点用来描述项目的基本信息，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;name&gt;sales&lt;&#x2F;name&gt;</span><br><span class="line">      &lt;description&gt;这是一个销售系统&lt;&#x2F;description&gt;</span><br><span class="line">      &lt;url&gt;http:&#x2F;&#x2F;www.kailing.pub&lt;&#x2F;url&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Licenses节点，描述许可证信息"><a href="#Licenses节点，描述许可证信息" class="headerlink" title="Licenses节点，描述许可证信息"></a>Licenses节点，描述许可证信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;licenses&gt;</span><br><span class="line">  &lt;license&gt;</span><br><span class="line">    &lt;name&gt;Apache License, Version 2.0&lt;&#x2F;name&gt;</span><br><span class="line">    &lt;url&gt;https:&#x2F;&#x2F;www.apache.org&#x2F;licenses&#x2F;LICENSE-2.0.txt&lt;&#x2F;url&gt;</span><br><span class="line">    &lt;distribution&gt;repo&lt;&#x2F;distribution&gt;</span><br><span class="line">    &lt;comments&gt;A business-friendly OSS license&lt;&#x2F;comments&gt;</span><br><span class="line">  &lt;&#x2F;license&gt;</span><br><span class="line">&lt;&#x2F;licenses&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Organization节点，描述组织信息"><a href="#Organization节点，描述组织信息" class="headerlink" title="Organization节点，描述组织信息"></a>Organization节点，描述组织信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;organization&gt;</span><br><span class="line">    &lt;name&gt;keking&lt;&#x2F;name&gt;</span><br><span class="line">    &lt;url&gt;http:&#x2F;&#x2F;www.keking.cn&lt;&#x2F;url&gt;</span><br><span class="line">  &lt;&#x2F;organization&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="省略…"><a href="#省略…" class="headerlink" title="省略…."></a>省略….</h4><h2 id="遵守的准则规范"><a href="#遵守的准则规范" class="headerlink" title="遵守的准则规范"></a>遵守的准则规范</h2><h3 id="MAVEN坐标VERSION属性设置"><a href="#MAVEN坐标VERSION属性设置" class="headerlink" title="MAVEN坐标VERSION属性设置"></a>MAVEN坐标VERSION属性设置</h3><p>一般建议在开发和测试环境中的jar，打成SNAPSHOT的，生产环境的版本打成RELEASES的，这个可以通过上面的profiles节点来控制，他们的区别如下：</p>
+<ul>
+<li>SNAPSHOT :当版本号带’-SNAPSHOT’后缀时，既定义发布的jar为快照版本，应用在依赖时，总是会拉取最新的快照版本。</li>
+<li>RELEASES :当版本号带’-RELEASES’后缀时，既定义发布的jar为发行版，应用依赖时，首次会从远程仓库拉取，当本地仓库已有时，就不会从远程仓库拉最新的依赖了。RELEASES版本的每次更新必须指定版本号。</li>
+</ul>
+<h3 id="开发中的API模块，需要DEPLOY"><a href="#开发中的API模块，需要DEPLOY" class="headerlink" title="开发中的API模块，需要DEPLOY"></a>开发中的API模块，需要DEPLOY</h3><p>应用有些模块需要提供给别人依赖，比如api模块、common模块等。在开发时，每次接口有变动时，记得mvn deploy下，把jar上传到私服。</p>
+<h3 id="依赖的JAR的版本使用属性控制"><a href="#依赖的JAR的版本使用属性控制" class="headerlink" title="依赖的JAR的版本使用属性控制"></a>依赖的JAR的版本使用属性控制</h3><p>建议依赖别的jar时，不要写死jar的版本，通过properties节点定义的属性来控制，那么当你pom被别人依赖时，上层pom可以通过定义属性值覆盖父pom中属性来控制依赖的版本</p>
+<h3 id="多模块项目时，模块命名规范"><a href="#多模块项目时，模块命名规范" class="headerlink" title="多模块项目时，模块命名规范"></a>多模块项目时，模块命名规范</h3><p>在多模块时，子模块的命名建议使用父模块作为前缀，如sales系统，api模块为sales-api,app模块为sales-app</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/27/hello-world/" rel="prev" title="Hello">
+      <i class="fa fa-chevron-left"></i> Hello
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/29/springboot%E5%8A%A0%E5%AF%86%E6%A1%86%E6%9E%B6%E5%BC%80%E6%BA%90/" rel="next" title="springboot加密框架开源">
+      springboot加密框架开源 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础信息"><span class="nav-number">1.1.</span> <span class="nav-text">基础信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义pom模型的基本信息"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义pom模型的基本信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#modules-节点，聚合子模块，"><span class="nav-number">1.1.2.</span> <span class="nav-text">modules 节点，聚合子模块，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parent节点，继承其他pom模型的属性"><span class="nav-number">1.1.3.</span> <span class="nav-text">parent节点，继承其他pom模型的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#properties-节点，定义属性信息"><span class="nav-number">1.1.4.</span> <span class="nav-text">properties 节点，定义属性信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dependencies-节点，定义项目依赖"><span class="nav-number">1.1.5.</span> <span class="nav-text">dependencies 节点，定义项目依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dependencyManagement-节点，声明依赖项"><span class="nav-number">1.1.6.</span> <span class="nav-text">dependencyManagement 节点，声明依赖项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#profiles-gt-profile-节点，定义不同环境的构建属性"><span class="nav-number">1.1.7.</span> <span class="nav-text">profiles -&gt; profile 节点，定义不同环境的构建属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#repositories、pluginRepositories-节点，定义依赖和插件的仓库地址"><span class="nav-number">1.1.8.</span> <span class="nav-text">repositories、pluginRepositories 节点，定义依赖和插件的仓库地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建信息"><span class="nav-number">1.2.</span> <span class="nav-text">构建信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#build-节点，设置输入输出路径"><span class="nav-number">1.2.1.</span> <span class="nav-text">build 节点，设置输入输出路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#build-gt-resources-定义项目资源"><span class="nav-number">1.2.2.</span> <span class="nav-text">build -&gt; resources,定义项目资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#build-gt-plugins-gt-plugin-定义构建插件"><span class="nav-number">1.2.3.</span> <span class="nav-text">build -&gt; plugins -&gt; plugin,定义构建插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#distributionManagement-节点，配置deploy的仓库地址"><span class="nav-number">1.2.4.</span> <span class="nav-text">distributionManagement 节点，配置deploy的仓库地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目信息"><span class="nav-number">1.3.</span> <span class="nav-text">项目信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根节点下的name、description、url等节点"><span class="nav-number">1.3.1.</span> <span class="nav-text">根节点下的name、description、url等节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Licenses节点，描述许可证信息"><span class="nav-number">1.3.2.</span> <span class="nav-text">Licenses节点，描述许可证信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Organization节点，描述组织信息"><span class="nav-number">1.3.3.</span> <span class="nav-text">Organization节点，描述组织信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#省略…"><span class="nav-number">1.3.4.</span> <span class="nav-text">省略….</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遵守的准则规范"><span class="nav-number">2.</span> <span class="nav-text">遵守的准则规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MAVEN坐标VERSION属性设置"><span class="nav-number">2.1.</span> <span class="nav-text">MAVEN坐标VERSION属性设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发中的API模块，需要DEPLOY"><span class="nav-number">2.2.</span> <span class="nav-text">开发中的API模块，需要DEPLOY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖的JAR的版本使用属性控制"><span class="nav-number">2.3.</span> <span class="nav-text">依赖的JAR的版本使用属性控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多模块项目时，模块命名规范"><span class="nav-number">2.4.</span> <span class="nav-text">多模块项目时，模块命名规范</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="GY"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">GY</p>
+  <div class="site-description" itemprop="description">后端</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+   <!--
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>-->
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/785175323" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;785175323" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GY</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
