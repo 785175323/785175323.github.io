@@ -180,7 +180,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="post-title-link" itemprop="url">基于redisson的声明式注解方式分布式锁</a>
+            <a href="/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="post-title-link" itemprop="url">Lock-Thanos基于redisson的声明式注解方式分布式锁</a>
         </h2>
 
         <div class="post-meta">
@@ -191,7 +191,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-02 14:58:14 / 修改时间：14:58:46" itemprop="dateCreated datePublished" datetime="2020-04-02T14:58:14+08:00">2020-04-02</time>
+              <time title="创建时间：2020-04-02 14:58:14 / 修改时间：15:00:40" itemprop="dateCreated datePublished" datetime="2020-04-02T14:58:14+08:00">2020-04-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -214,24 +214,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Lock-Thanos"><a href="#Lock-Thanos" class="headerlink" title="Lock-Thanos"></a>Lock-Thanos</h1><p>基于Redisson的分布式锁,声明式注解方式,<a href="https://github.com/785175323/Lock-Thanos" target="_blank" rel="noopener">git地址,喜欢请留星星</a></p>
-<p>###一.功能:</p>
-<ol>
-<li>支持可重入公平锁,可重入非公平锁,写锁,读锁</li>
-<li>支持注解声明式设置参数</li>
-<li>自定义错误处理</li>
-</ol>
-<p>###二.引入项目:<br>1 引入pom参数:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;com.kakuiwong&lt;&#x2F;groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;lock-thanos&lt;&#x2F;artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;lastversion&#125;&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>2 编写application配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lock.thanos.address&#x3D;redis:&#x2F;&#x2F;127.0.0.1:6379,redis:&#x2F;&#x2F;127.0.0.2:6379 #集群或单机</span><br><span class="line">lock.thanos.password&#x3D;123456 #密码</span><br><span class="line">lock.thanos.database&#x3D;2 #redis数据库</span><br><span class="line">lock.thanos.order&#x3D;0 #aop顺序</span><br></pre></td></tr></table></figure>
-
-<p>3 引入注解:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@LockThanos(key &#x3D; &#123;&quot;#id&quot;&#125;,                                      #支持spel的锁key</span><br><span class="line">        type &#x3D; LockTypeEnum.FAIRLOCK,                           #锁类别</span><br><span class="line">        lockName &#x3D; &quot;default&quot;,                                   #锁名称</span><br><span class="line">        tryLockTime &#x3D; 30,                                       #尝试加锁过期时间</span><br><span class="line">        autoUnlockTime &#x3D; 30,                                    #自动销毁锁时间</span><br><span class="line">        timeUnit &#x3D; TimeUnit.SECONDS,                            #时间单位</span><br><span class="line">        exceptionHandler &#x3D; LockExceptionHandlerDemo.class)      #自定义异常处理方式</span><br><span class="line">@GetMapping(&quot;lock&quot;)</span><br><span class="line">public Object lock(String id)&#123;</span><br><span class="line">    System.out.println(id);</span><br><span class="line">    return id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>4 自定义异常处理:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;实现LockExceptionHandler接口,默认为不做任何处理</span><br><span class="line">static class LockExceptionHandlerDemo implements LockExceptionHandler &#123;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public Object lockFailHandle(ProceedingJoinPoint joinPoint, ThanosLockI lock, LockParam lockParam) throws Throwable &#123;</span><br><span class="line">            System.out.println(&quot;lockFailHandle&quot;);</span><br><span class="line">            return joinPoint.proceed();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void unLockFailHandle(ProceedingJoinPoint joinPoint, ThanosLockI lock, LockParam lockParam) &#123;</span><br><span class="line">            System.out.println(&quot;unLockFailHandle&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+          <p>Lock-Thanos基于Redisson的分布式锁,声明式注解方式</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
