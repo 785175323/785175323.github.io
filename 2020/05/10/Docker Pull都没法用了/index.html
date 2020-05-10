@@ -20,12 +20,13 @@
     var CONFIG = {"hostname":"kakuiwong.cn","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","padding":30,"offset":3,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="后端">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KAKUIWONG">
-<meta property="og:url" content="http://kakuiwong.cn/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="docker pull都没法用了?">
+<meta property="og:url" content="http://kakuiwong.cn/2020/05/10/Docker%20Pull%E9%83%BD%E6%B2%A1%E6%B3%95%E7%94%A8%E4%BA%86/index.html">
 <meta property="og:site_name" content="KAKUIWONG">
-<meta property="og:description" content="后端">
+<meta property="og:image" content="http://kakuiwong.cn/images/loading.gif">
+<meta property="article:published_time" content="2020-05-10T09:45:47.000Z">
+<meta property="article:modified_time" content="2020-05-10T04:05:24.042Z">
 <meta property="article:author" content="GY">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="java">
@@ -35,8 +36,9 @@
 <meta property="article:tag" content="Spring Cloud">
 <meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kakuiwong.cn/images/loading.gif">
 
-<link rel="canonical" href="http://kakuiwong.cn/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+<link rel="canonical" href="http://kakuiwong.cn/2020/05/10/Docker%20Pull%E9%83%BD%E6%B2%A1%E6%B3%95%E7%94%A8%E4%BA%86/">
 
 
 <script id="page-configurations">
@@ -44,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-Hans'
   };
 </script>
 
-  <title>分类: 大数据 | KAKUIWONG</title>
+  <title>docker pull都没法用了? | KAKUIWONG</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=164509564"></script>
     <script>
@@ -169,57 +171,127 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">大数据
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://kakuiwong.cn/2020/05/10/Docker%20Pull%E9%83%BD%E6%B2%A1%E6%B3%95%E7%94%A8%E4%BA%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://data.kakuiwong.cn/avatar.jpg">
+      <meta itemprop="name" content="GY">
+      <meta itemprop="description" content="后端">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KAKUIWONG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          docker pull都没法用了?
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-10 17:45:47 / 修改时间：12:05:24" itemprop="dateCreated datePublished" datetime="2020-05-10T17:45:47+08:00">2020-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">运维技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+         <img src="/images/loading.gif" data-original="/images/post/docker_pull/1.gif" width = "300" height = "200" alt="图片名称" align=center />
+
+<a id="more"></a>
+
+<h5 id="1-动机"><a href="#1-动机" class="headerlink" title="1.动机"></a>1.动机</h5><p>&emsp;  拿出了好久没用的笔记本,开启VM虚拟机集群,目的是通过docker安装一下ElasticSearch集群,然后想测试下通过MySQL的Binlog来同步数据到ES,以前都是直接通过MQ来进行消费同步的.</p>
+<h5 id="2-报错"><a href="#2-报错" class="headerlink" title="2.报错"></a>2.报错</h5><p>&emsp;然而这次在执行docker search,docker pull命令时,都会报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error response from daemon: Get https:&#x2F;&#x2F;index.docker.io&#x2F;v1&#x2F;search?q&#x3D;elasticsearch&amp;n&#x3D;25: proxyconnect tcp: dial tcp 192.168.19.11:1080: connect: connection refused</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-解决"><a href="#3-解决" class="headerlink" title="3.解决"></a>3.解决</h5><p>&emsp;直接定位到了其中192.168.19.11:1080这个地址,估计是以前设置的代理,不过现在ping不通了,现在就要找出如果更改这个配置,或者取消代理.</p>
+<p>&emsp;经过搜索,找到Docker文档<code>&lt;https://docs.docker.com/config/daemon/systemd/&gt;</code>中对HTTP_PROXY的设置,不过我的环境中没有其中的文件夹及其配置;然后定位到了<code>/lib/systemd/system/docker.service</code>目录文件,发现其内容中出现了代理地址:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Docker Application Container Engine</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;docs.docker.com</span><br><span class="line">After&#x3D;network-online.target docker.socket firewalld.service</span><br><span class="line">Wants&#x3D;network-online.target</span><br><span class="line">Requires&#x3D;docker.socket</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H tcp:&#x2F;&#x2F;0.0.0.0:2375 -H unix:&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -s HUP $MAINPID</span><br><span class="line">LimitNOFILE&#x3D;1048576</span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNPROC&#x3D;infinity</span><br><span class="line">LimitCORE&#x3D;infinity</span><br><span class="line"># Uncomment TasksMax if your systemd version supports it.</span><br><span class="line"># Only systemd 226 and above support this version.</span><br><span class="line">TasksMax&#x3D;infinity</span><br><span class="line">TimeoutStartSec&#x3D;0</span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate&#x3D;yes</span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode&#x3D;process</span><br><span class="line"># restart the docker process if it exits prematurely</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">StartLimitBurst&#x3D;3</span><br><span class="line">StartLimitInterval&#x3D;60s</span><br><span class="line">Environment&#x3D;&quot;HTTPS_PROXY&#x3D;http:&#x2F;&#x2F;192.168.19.11:1080&#x2F;&quot;       &lt;&lt;&lt;&lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">Environment&#x3D;&quot;NO_PROXY&#x3D;127.0.0.0&#x2F;6,172.20.0.0&#x2F;16&quot;</span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;那就好解决了,如果不使用代理,直接删除以下即可:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Environment&#x3D;&quot;HTTPS_PROXY&#x3D;http:&#x2F;&#x2F;192.168.19.11:1080&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">Environment&#x3D;&quot;NO_PROXY&#x3D;127.0.0.0&#x2F;6,172.20.0.0&#x2F;16&quot;</span><br></pre></td></tr></table></figure>
+
+<p><em>&emsp;Docker单独玩不好管理,可以搭配Docker Compose编排工具,如果再重一点可以使用K8S,还是比较好玩的,对于自己进行各种环境搭建测试还是比较方便的.</em> </p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
+        
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-22T10:51:57+08:00"
-              content="2020-04-22">
-          04-22
-        </time>
-      </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>GY
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://kakuiwong.cn/2020/05/10/Docker%20Pull%E9%83%BD%E6%B2%A1%E6%B3%95%E7%94%A8%E4%BA%86/" title="docker pull都没法用了?">http://kakuiwong.cn/2020/05/10/Docker Pull都没法用了/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-Hands" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/04/22/%E8%BF%9F%E6%9D%A5%E7%9A%84Spark%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%97/" itemprop="url">
-            <span itemprop="name">迟来的Spark入坑指南</span>
-          </a>
-      </div>
 
-    </header>
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/22/%E8%BF%9F%E6%9D%A5%E7%9A%84Spark%E5%85%A5%E5%9D%91%E6%8C%87%E5%8D%97/" rel="prev" title="迟来的Spark入坑指南">
+      <i class="fa fa-chevron-left"></i> 迟来的Spark入坑指南
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -266,6 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-动机"><span class="nav-number">1.</span> <span class="nav-text">1.动机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-报错"><span class="nav-number">2.</span> <span class="nav-text">2.报错</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-解决"><span class="nav-number">3.</span> <span class="nav-text">3.解决</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -396,6 +469,25 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '84d0ebd5e9d55bddc3e5',
+      clientSecret: 'f326d056aa1c12e300aff51210d3436dfd4b1a22',
+      repo        : 'blogComment',
+      owner       : '785175323',
+      admin       : ['785175323'],
+      id          : '91762ba8025244752b7a098a255c331c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 <script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":200,"height":350},"mobile":{"show":true},"log":false});</script></body>
 </html>
