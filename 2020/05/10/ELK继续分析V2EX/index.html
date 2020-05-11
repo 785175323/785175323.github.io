@@ -20,14 +20,16 @@
     var CONFIG = {"hostname":"kakuiwong.cn","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","padding":30,"offset":3,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Lock-Thanos基于Redisson的分布式锁,声明式注解方式">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Lock-Thanos基于redisson的声明式注解方式分布式锁">
-<meta property="og:url" content="http://kakuiwong.cn/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="ELK继续分析V2EX">
+<meta property="og:url" content="http://kakuiwong.cn/2020/05/10/ELK%E7%BB%A7%E7%BB%AD%E5%88%86%E6%9E%90V2EX/index.html">
 <meta property="og:site_name" content="KAKUIWONG">
-<meta property="og:description" content="Lock-Thanos基于Redisson的分布式锁,声明式注解方式">
-<meta property="article:published_time" content="2020-04-02T06:58:14.000Z">
-<meta property="article:modified_time" content="2020-04-17T07:14:30.755Z">
+<meta property="og:image" content="http://kakuiwong.cn/images/post/elk/4.png">
+<meta property="og:image" content="http://kakuiwong.cn/images/post/elk/1.png">
+<meta property="og:image" content="http://kakuiwong.cn/images/post/elk/3.png">
+<meta property="og:image" content="http://kakuiwong.cn/images/post/elk/2.png">
+<meta property="article:published_time" content="2020-05-10T11:45:47.000Z">
+<meta property="article:modified_time" content="2020-05-11T05:43:14.332Z">
 <meta property="article:author" content="GY">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="java">
@@ -37,8 +39,9 @@
 <meta property="article:tag" content="Spring Cloud">
 <meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://kakuiwong.cn/images/post/elk/4.png">
 
-<link rel="canonical" href="http://kakuiwong.cn/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
+<link rel="canonical" href="http://kakuiwong.cn/2020/05/10/ELK%E7%BB%A7%E7%BB%AD%E5%88%86%E6%9E%90V2EX/">
 
 
 <script id="page-configurations">
@@ -51,7 +54,7 @@
   };
 </script>
 
-  <title>Lock-Thanos基于redisson的声明式注解方式分布式锁 | KAKUIWONG</title>
+  <title>ELK继续分析V2EX | KAKUIWONG</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=164509564"></script>
     <script>
@@ -179,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://kakuiwong.cn/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
+    <link itemprop="mainEntityOfPage" href="http://kakuiwong.cn/2020/05/10/ELK%E7%BB%A7%E7%BB%AD%E5%88%86%E6%9E%90V2EX/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://data.kakuiwong.cn/avatar.jpg">
@@ -192,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Lock-Thanos基于redisson的声明式注解方式分布式锁
+          ELK继续分析V2EX
         </h1>
 
         <div class="post-meta">
@@ -202,14 +205,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-02 14:58:14" itemprop="dateCreated datePublished" datetime="2020-04-02T14:58:14+08:00">2020-04-02</time>
+              <time title="创建时间：2020-05-10 19:45:47" itemprop="dateCreated datePublished" datetime="2020-05-10T19:45:47+08:00">2020-05-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-17 15:14:30" itemprop="dateModified" datetime="2020-04-17T15:14:30+08:00">2020-04-17</time>
+                <time title="修改时间：2020-05-11 13:43:14" itemprop="dateModified" datetime="2020-05-11T13:43:14+08:00">2020-05-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -217,7 +220,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">开源项目</span></a>
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">运维技术</span></a>
                 </span>
             </span>
 
@@ -232,30 +235,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Lock-Thanos基于Redisson的分布式锁,声明式注解方式</p>
+        <p><img src="/images/post/elk/4.png" alt=""></p>
 <a id="more"></a>
 
-<p>一.功能:</p>
-<ol>
-<li><p>支持可重入公平锁,可重入非公平锁,写锁,读锁</p>
-</li>
-<li><p>支持注解声明式设置参数</p>
-</li>
-<li><p>自定义错误处理</p>
-</li>
-</ol>
-<p>   <a href="https://github.com/785175323/Lock-Thanos" target="_blank" rel="noopener">git地址,喜欢请留星星</a></p>
-<p>二.引入项目:<br>1 引入pom参数:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;com.kakuiwong&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;lock-thanos&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;$&#123;lastversion&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="1-目的"><a href="#1-目的" class="headerlink" title="1.目的:"></a>1.目的:</h4><p>是将v2ex.txt导入到ES中分析,通过kibana呈现;现在Elastic Stack有好多好用的工具,这次用到的是:</p>
+<h5 id="Filebeat-gt-采集文本文件-gt-Logstash-gt-进行JSON转换-gt-ES-gt-存储-gt-Kibana-gt-图标呈现"><a href="#Filebeat-gt-采集文本文件-gt-Logstash-gt-进行JSON转换-gt-ES-gt-存储-gt-Kibana-gt-图标呈现" class="headerlink" title="Filebeat=&gt;采集文本文件=&gt;Logstash=&gt;进行JSON转换=&gt;ES=&gt;存储=&gt;Kibana=&gt;图标呈现"></a><em>Filebeat=&gt;采集文本文件=&gt;Logstash=&gt;进行JSON转换=&gt;ES=&gt;存储=&gt;Kibana=&gt;图标呈现</em></h5><h4 id="2-拉取镜像"><a href="#2-拉取镜像" class="headerlink" title="2.拉取镜像:"></a>2.拉取镜像:</h4><p><img src="/images/post/elk/1.png" alt=""></p>
+<p>这次根据官网使用最新版本7.6.2</p>
+<h4 id="3-创建文件及响应映射文件夹"><a href="#3-创建文件及响应映射文件夹" class="headerlink" title="3.创建文件及响应映射文件夹"></a>3.创建文件及响应映射文件夹</h4><p><img src="/images/post/elk/3.png" alt=""></p>
+<h4 id="4-快速编排单机模式-docker-compose-yml"><a href="#4-快速编排单机模式-docker-compose-yml" class="headerlink" title="4.快速编排单机模式:docker-compose.yml"></a>4.快速编排单机模式:docker-compose.yml</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'2'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">   <span class="attr">es:</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">docker.elastic.co/elasticsearch/elasticsearch:7.6.2</span> </span><br><span class="line">      <span class="attr">container_name:</span> <span class="string">es</span></span><br><span class="line">      <span class="attr">ports:</span> </span><br><span class="line">          <span class="bullet">-</span> <span class="number">9200</span><span class="string">:9200</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">9300</span><span class="string">:9300</span></span><br><span class="line">      <span class="attr">expose:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="number">9200</span></span><br><span class="line">      <span class="attr">ulimits:</span></span><br><span class="line">          <span class="attr">nofile:</span></span><br><span class="line">             <span class="attr">soft:</span> <span class="number">65536</span></span><br><span class="line">             <span class="attr">hard:</span> <span class="number">65536</span></span><br><span class="line">      <span class="attr">environment:</span> </span><br><span class="line">          <span class="bullet">-</span> <span class="string">discovery.type=single-node</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">ES_JAVA_OPTS=-Xms256M</span> <span class="string">-Xmx256M</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">./es_data:/usr/share/elasticsearch/data</span></span><br><span class="line"></span><br><span class="line">   <span class="attr">kibana:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">docker.elastic.co/kibana/kibana:7.6.2</span></span><br><span class="line">     <span class="attr">container_name:</span> <span class="string">kibana</span></span><br><span class="line">     <span class="attr">ports:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="number">5601</span><span class="string">:5601</span></span><br><span class="line">     <span class="attr">external_links:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">es</span></span><br><span class="line">     <span class="attr">environment:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">ELASTICSEARCH_HOSTS=http://es:9200</span></span><br><span class="line">   <span class="attr">logstash:</span></span><br><span class="line">     <span class="attr">container_name:</span> <span class="string">logstash</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">logstash:7.3.1</span></span><br><span class="line">     <span class="attr">ports:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="number">5044</span><span class="string">:5044</span></span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">  <span class="comment">#      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">./logstash/conf.d/logstash.conf:/config_d/logstash.conf</span></span><br><span class="line">     <span class="attr">depends_on:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">es</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">kibana</span></span><br><span class="line">     <span class="attr">command:</span> <span class="string">bash</span> <span class="string">-c</span> <span class="string">"logstash -f /config_d --config.reload.automatic"</span></span><br><span class="line">   </span><br><span class="line">   <span class="attr">filebeat:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">docker.elastic.co/beats/filebeat:7.6.2</span></span><br><span class="line">     <span class="attr">container_name:</span> <span class="string">filebeat</span></span><br><span class="line">     <span class="attr">external_links:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">es</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">kibana</span></span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">./filebeat/v2ex.txt:/v2ex/v2ex.txt</span></span><br><span class="line">     <span class="attr">depends_on:</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">es</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">kibana</span></span><br><span class="line">         <span class="bullet">-</span> <span class="string">logstash</span></span><br></pre></td></tr></table></figure>
 
-<p>2 编写application配置文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lock.thanos.address=redis:<span class="comment">//127.0.0.1:6379,redis://127.0.0.2:6379 #集群或单机</span></span><br><span class="line">lock.thanos.password=123456 #密码</span><br><span class="line">lock.thanos.database=2 #redis数据库</span><br><span class="line">lock.thanos.order=0 #aop顺序</span><br></pre></td></tr></table></figure>
-
-<p>3 引入注解:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@LockThanos(key = &#123;"#id"&#125;,                                      #支持spel的锁key</span><br><span class="line">        type = LockTypeEnum.FAIRLOCK,                           #锁类别</span><br><span class="line">        lockName = "default",                                   #锁名称</span><br><span class="line">        tryLockTime = 30,                                       #尝试加锁过期时间</span><br><span class="line">        autoUnlockTime = 30,                                    #自动销毁锁时间</span><br><span class="line">        timeUnit = TimeUnit.SECONDS,                            #时间单位</span><br><span class="line">        exceptionHandler = LockExceptionHandlerDemo<span class="class">.<span class="keyword">class</span>)      #自定义异常处理方式</span></span><br><span class="line">@GetMapping("lock")</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">lock</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">    System.out.println(id);</span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>4 自定义异常处理:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现LockExceptionHandler接口,默认为不做任何处理</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LockExceptionHandlerDemo</span> <span class="keyword">implements</span> <span class="title">LockExceptionHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">lockFailHandle</span><span class="params">(ProceedingJoinPoint joinPoint, ThanosLockI lock, LockParam lockParam)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"lockFailHandle"</span>);</span><br><span class="line">            <span class="keyword">return</span> joinPoint.proceed();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unLockFailHandle</span><span class="params">(ProceedingJoinPoint joinPoint, ThanosLockI lock, LockParam lockParam)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"unLockFailHandle"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/elk/2.png" alt=""></p>
+<h4 id="5-可以根据条件分析数据了"><a href="#5-可以根据条件分析数据了" class="headerlink" title="5.可以根据条件分析数据了~"></a>5.可以根据条件分析数据了~</h4>
     </div>
 
     
@@ -270,7 +260,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://kakuiwong.cn/2020/04/02/%E5%9F%BA%E4%BA%8Eredisson%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="Lock-Thanos基于redisson的声明式注解方式分布式锁">http://kakuiwong.cn/2020/04/02/基于redisson的声明式注解方式分布式锁/</a>
+    <a href="http://kakuiwong.cn/2020/05/10/ELK%E7%BB%A7%E7%BB%AD%E5%88%86%E6%9E%90V2EX/" title="ELK继续分析V2EX">http://kakuiwong.cn/2020/05/10/ELK继续分析V2EX/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-Hands" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -287,13 +277,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/29/springboot%E5%8A%A0%E5%AF%86%E6%A1%86%E6%9E%B6%E5%BC%80%E6%BA%90/" rel="prev" title="springboot加密框架开源">
-      <i class="fa fa-chevron-left"></i> springboot加密框架开源
+    <a href="/2020/05/10/Docker%20Pull%E9%83%BD%E6%B2%A1%E6%B3%95%E7%94%A8%E4%BA%86/" rel="prev" title="docker pull都没法用了?">
+      <i class="fa fa-chevron-left"></i> docker pull都没法用了?
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/04/04/jOOQ/" rel="next" title="jOOQ">
-      jOOQ <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -354,6 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-目的"><span class="nav-number">1.</span> <span class="nav-text">1.目的:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Filebeat-gt-采集文本文件-gt-Logstash-gt-进行JSON转换-gt-ES-gt-存储-gt-Kibana-gt-图标呈现"><span class="nav-number">1.1.</span> <span class="nav-text">Filebeat&#x3D;&gt;采集文本文件&#x3D;&gt;Logstash&#x3D;&gt;进行JSON转换&#x3D;&gt;ES&#x3D;&gt;存储&#x3D;&gt;Kibana&#x3D;&gt;图标呈现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-拉取镜像"><span class="nav-number">2.</span> <span class="nav-text">2.拉取镜像:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-创建文件及响应映射文件夹"><span class="nav-number">3.</span> <span class="nav-text">3.创建文件及响应映射文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-快速编排单机模式-docker-compose-yml"><span class="nav-number">4.</span> <span class="nav-text">4.快速编排单机模式:docker-compose.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-可以根据条件分析数据了"><span class="nav-number">5.</span> <span class="nav-text">5.可以根据条件分析数据了~</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -495,7 +483,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'blogComment',
       owner       : '785175323',
       admin       : ['785175323'],
-      id          : 'd474af3778817ded71e5f85915332308',
+      id          : 'bacb3be842be52822db14fdf0f58b737',
         language: 'zh-CN',
       distractionFreeMode: true
     });
