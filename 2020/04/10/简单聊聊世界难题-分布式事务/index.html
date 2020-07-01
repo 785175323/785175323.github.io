@@ -26,9 +26,9 @@
 <meta property="og:url" content="http://kakuiwong.cn/2020/04/10/%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E4%B8%96%E7%95%8C%E9%9A%BE%E9%A2%98-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/index.html">
 <meta property="og:site_name" content="KAKUIWONG">
 <meta property="og:description" content="分布式事务可以说是在分布式架构系统中,比较棘手的问题了.如果根据业务场景制定相应的事务,如利用消息的事务最终一致性解决方案,XA等2PC强一致方案等等.今天就列举一下相关解决方案;">
-<meta property="og:image" content="http://kakuiwong.cn/images/loading.gif">
+<meta property="og:image" content="http://data.kakuiwong.cn/acid4.png">
 <meta property="article:published_time" content="2020-04-10T05:53:25.000Z">
-<meta property="article:modified_time" content="2020-04-18T06:12:10.101Z">
+<meta property="article:modified_time" content="2020-07-01T04:31:47.328Z">
 <meta property="article:author" content="Myth_GY">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="java">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="Spring Cloud">
 <meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://kakuiwong.cn/images/loading.gif">
+<meta name="twitter:image" content="http://data.kakuiwong.cn/acid4.png">
 
 <link rel="canonical" href="http://kakuiwong.cn/2020/04/10/%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E4%B8%96%E7%95%8C%E9%9A%BE%E9%A2%98-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
 
@@ -211,7 +211,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-18 14:12:10" itemprop="dateModified" datetime="2020-04-18T14:12:10+08:00">2020-04-18</time>
+                <time title="修改时间：2020-07-01 12:31:47" itemprop="dateModified" datetime="2020-07-01T12:31:47+08:00">2020-07-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,7 +234,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img src="/images/loading.gif" data-original="http://data.kakuiwong.cn/acid4.png" alt="">分布式事务可以说是在分布式架构系统中,比较棘手的问题了.如果根据业务场景制定相应的事务,如利用消息的事务最终一致性解决方案,XA等2PC强一致方案等等.今天就列举一下相关解决方案;</p>
+        <p><img src="http://data.kakuiwong.cn/acid4.png" alt="">分布式事务可以说是在分布式架构系统中,比较棘手的问题了.如果根据业务场景制定相应的事务,如利用消息的事务最终一致性解决方案,XA等2PC强一致方案等等.今天就列举一下相关解决方案;</p>
 <a id="more"></a>
 
 <h3 id="1-根据同步结果保证事务"><a href="#1-根据同步结果保证事务" class="headerlink" title="1.根据同步结果保证事务"></a>1.根据同步结果保证事务</h3><p>注:该种方式适用于单一的调用其他服务,利用业务执行顺序,根据同步结果保证事务</p>
@@ -285,9 +285,25 @@
 <p>4)当使用Spring提供的事务管理器时,RabbitMQ能够保证在本地事务提交成功后才发送消息,通过设置也可实现提交失败也发送消息;底层使用的Channel开启了事务信道的支持;经测试ActiveMQ等都支持此特性;</p>
 <p><strong>3.在使用消息队列保证事务一致性时,可以使用定时方法等协助消息的发送</strong></p>
 <p>例如:当使用RabbitMQ发送消息时在本地事务中增加唯一性消息日志,在confirm方法中更新发送状态;然后使用定时器扫描未发送消息进行重发;</p>
-<p><strong>4.设计保证幂等性的消费端接口</strong></p>
-<p>1)可以使用消息日志方式,保存消息记录,进而保证幂等性,例如如下方式:</p>
+<p><strong>4.设计保证幂等性的接口(不限于消费者,不同场景接口幂等处理方式)</strong></p>
+<p>1) 查询状态,适用于并发很低的情况并且对重复处理有一定容忍度,比如(伪代码):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="string">"该信息对应订单已消费"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//执行</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2)可以使用消息日志方式,保存消息记录,进而保证幂等性,例如如下方式:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           logMapper.insert(message.getTopic(), message.getQueue(), message.getId(), <span class="string">"processing"</span>);</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (DuplicateKeyException e) &#123;</span><br><span class="line">           <span class="comment">//此处可以继续验证是否处理成功,如需要则此处需保证线程安全</span></span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">  	<span class="comment">//处理业务</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (checkMessage(message)) &#123;</span><br><span class="line">           <span class="comment">//进行业务处理</span></span><br><span class="line">           <span class="comment">//此处可以将日志修改为成功</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3)悲观锁,比如Java中的synchronized,简单粗暴;</p>
+<p>4)乐观锁,再表中加入version等字段,每次修改数据库时进行判断提交时版本;该种方式可与第一种查询方法一起使用;</p>
+<p>5)利用redis等存储一次性token,比如在提交页面时获取后端唯一token并存储,消费时删除token进行唯一页面提交;</p>
+<p>6)状态机幂等,例如处理一个订单,会涉及不同状态,并且处理订单不同业务都受订单状态影响;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">consume</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">     <span class="comment">//判断订单状态是否处理</span></span><br><span class="line">     <span class="comment">//处理其他业务,更新时判断订单状态值(update 订单相关业务 where 订单状态=xx状态)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>7)还是状态机幂等,加入方式2的日志表方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">订单状态表:</span><br><span class="line">id,order_id,status</span><br><span class="line">order_id + status 唯一键索引</span><br></pre></td></tr></table></figure>
+
+<p>在同一事务下,订单处理插入状态表,通过唯一键保障该业务幂等;</p>
+<p>8)尽可能将业务设计为不会出现幂等性的方式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如用户点赞行为,每人只能点赞一次,并统计该文章赞数;</span><br><span class="line">1.用户点赞使用插入数据库并且唯一键的方式;</span><br><span class="line">2.文章不使用更新点赞数的操作,而是统计用户点赞表操作;</span><br></pre></td></tr></table></figure>
 
 
     </div>
